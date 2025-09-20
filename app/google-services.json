@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "464901602588",
+    "project_id": "air-pollution-840e6",
+    "storage_bucket": "air-pollution-840e6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:464901602588:android:5a4a271367c7f2db46ced9",
+        "android_client_info": {
+          "package_name": "com.rapcodetechnologies.air_pollution"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvZOKut4BodBihgsQ21mozrgerB-u4Q_w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
