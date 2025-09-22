@@ -115,9 +115,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-
-
-
     private void login() {
         String email1 = email.getText().toString();
         String pass1 = password.getText().toString();
@@ -138,8 +135,6 @@ public class LoginActivity extends AppCompatActivity {
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
                             progressDialog.dismiss();
                             finish();
-
-
 
                     } else {
 
