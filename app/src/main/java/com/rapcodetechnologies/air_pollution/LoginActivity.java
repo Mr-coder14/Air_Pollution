@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -25,38 +26,43 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity {
-    private TextView registerbtn,forget;
+    private TextView registerbtn, forget;
     private Button loginbtn;
     private FirebaseAuth auth;
-    private EditText email,password;
+    private EditText email, password;
     private ProgressDialog progressDialog;
+
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseUser userid=auth.getCurrentUser();
-        if(userid!=null){
-                startActivity(new Intent(LoginActivity.this,MainActivity.class));
-                finish();
-        }
-
+        // The following code is commented out to ensure the app always opens at the login screen.
+        // For a final app, this check is good practice to keep users logged in.
+        // FirebaseUser userid = auth.getCurrentUser();
+        // if (userid != null) {
+        //     startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        //     finish();
+        // }
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        registerbtn=findViewById(R.id.registerpage);
-        loginbtn=findViewById(R.id.loginbtn);
-        email=findViewById(R.id.emaillogin);
-        forget=findViewById(R.id.forgettxt);
+        registerbtn = findViewById(R.id.registerpage);
+        loginbtn = findViewById(R.id.loginbtn);
+        email = findViewById(R.id.emaillogin);
+        forget = findViewById(R.id.forgettxt);
+        password = findViewById(R.id.passwordlogin);
+        auth = FirebaseAuth.getInstance();
+        progressDialog = new ProgressDialog(this);
+
         forget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 forgetpassword();
             }
         });
-        password=findViewById(R.id.passwordlogin);
-        auth=FirebaseAuth.getInstance();
-        progressDialog = new ProgressDialog(this);
+
         loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
         registerbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this,RegisterActivity.class));
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             }
         });
     }
@@ -94,6 +100,8 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(LoginActivity.this, "Check your email", Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
                         } else {
+                            // Added log for debugging failed password reset attempts
+                            Log.e("LoginActivity", "Password reset failed: " + task.getException().getMessage());
                             Toast.makeText(LoginActivity.this, "Unable to send, failed", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -118,6 +126,7 @@ public class LoginActivity extends AppCompatActivity {
     private void login() {
         String email1 = email.getText().toString();
         String pass1 = password.getText().toString();
+
         if (TextUtils.isEmpty(email1) || TextUtils.isEmpty(pass1)) {
             Toast.makeText(LoginActivity.this, "Enter All details", Toast.LENGTH_SHORT).show();
         } else if (pass1.length() < 6) {
@@ -126,22 +135,20 @@ public class LoginActivity extends AppCompatActivity {
             progressDialog.setMessage("Logging in...");
             progressDialog.setCancelable(false);
             progressDialog.show();
-            auth.signInWithEmailAndPassword(email1,pass1).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            auth.signInWithEmailAndPassword(email1, pass1).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     progressDialog.dismiss();
-                    if(task.isSuccessful()){
-
-                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                            progressDialog.dismiss();
-                            finish();
-
+                    if (task.isSuccessful()) {
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        finish();
                     } else {
-
+                        // Added log for debugging failed login attempts
+                        Log.e("LoginActivity", "Login failed: " + task.getException().getMessage());
                         Toast.makeText(LoginActivity.this, "Login failed. Please try again.", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         }
     }
-    }
+}
