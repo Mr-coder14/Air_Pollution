@@ -15,23 +15,11 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         />
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomappbar"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="68dp"
-        android:layout_gravity="bottom"
-        android:padding="2dp"
-        android:background="@color/white"
-        app:cnb_menuResource="@menu/bottom_menu"
-        app:cnb_orientationMode="horizontal"
-        app:cnb_addBottomInset="false"
-        app:cnb_addLeftInset="false"
-        app:cnb_addRightInset="false"
-        app:cnb_addTopInset="false"
-        app:cnb_unselectedColor="@color/black"
-        app:cnb_backgroundColor="@color/PrimaryColor"
-        app:cnb_badgeColor="@color/PrimaryColor"
-        app:cnb_radius="20dp"
-        app:cnb_iconSize="20dp"
-        app:cnb_animationDuration="175"/>
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="HEllO WORLD"
+        />
 </LinearLayout>
