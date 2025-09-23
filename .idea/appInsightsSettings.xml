@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="com.rapcodetechnologies.air_pollution" />
-                  <option name="mobileSdkAppId" value="1:464901602588:android:5a4a271367c7f2db46ced9" />
-                  <option name="projectId" value="air-pollution-840e6" />
-                  <option name="projectNumber" value="464901602588" />
+                  <option name="appId" value="PLACEHOLDER" />
+                  <option name="mobileSdkAppId" value="" />
+                  <option name="projectId" value="" />
+                  <option name="projectNumber" value="" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
