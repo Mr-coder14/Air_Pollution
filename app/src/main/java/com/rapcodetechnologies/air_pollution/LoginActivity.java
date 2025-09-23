@@ -35,13 +35,11 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        // The following code is commented out to ensure the app always opens at the login screen.
-        // For a final app, this check is good practice to keep users logged in.
-        // FirebaseUser userid = auth.getCurrentUser();
-        // if (userid != null) {
-        //     startActivity(new Intent(LoginActivity.this, MainActivity.class));
-        //     finish();
-        // }
+         FirebaseUser userid = auth.getCurrentUser();
+         if (userid != null) {
+             startActivity(new Intent(LoginActivity.this, MainActivity.class));
+             finish();
+         }
     }
 
     @Override
