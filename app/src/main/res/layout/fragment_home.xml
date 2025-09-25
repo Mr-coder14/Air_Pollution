@@ -56,6 +56,9 @@
             android:layout_marginBottom="16dp"
             app:cardCornerRadius="20dp"
             app:cardElevation="8dp"
+            android:elevation="8dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             app:cardBackgroundColor="@color/card_background">
 
             <LinearLayout
@@ -122,6 +125,9 @@
             android:layout_marginBottom="16dp"
             app:cardCornerRadius="20dp"
             app:cardElevation="8dp"
+            android:elevation="8dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             app:cardBackgroundColor="@color/card_background">
 
             <LinearLayout
@@ -208,6 +214,9 @@
             android:layout_marginBottom="12dp"
             app:cardCornerRadius="16dp"
             app:cardElevation="6dp"
+
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
             app:cardBackgroundColor="@color/today_card_bg">
 
             <LinearLayout
@@ -354,6 +363,10 @@
             android:layout_marginBottom="12dp"
             app:cardCornerRadius="16dp"
             app:cardElevation="6dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+
+            android:elevation="8dp"
             app:cardBackgroundColor="@color/card_background">
 
             <LinearLayout
@@ -500,6 +513,10 @@
             android:layout_marginBottom="16dp"
             app:cardCornerRadius="16dp"
             app:cardElevation="6dp"
+            android:elevation="8dp"
+            android:layout_marginRight="3dp"
+            android:layout_marginLeft="3dp"
+
             app:cardBackgroundColor="@color/card_background">
 
             <LinearLayout
