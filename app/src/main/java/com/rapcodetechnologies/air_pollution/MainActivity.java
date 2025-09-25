@@ -37,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
                 selectedFragment = new HomeFragment();
             } else if (item.getItemId() == R.id.nav_profile) {
                 selectedFragment = new ProfileFragment();
+            }else if(item.getItemId()==R.id.nav_cities){
+                selectedFragment=new fragment_cities();
             }
 
             if (selectedFragment != null) {
