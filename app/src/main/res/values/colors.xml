@@ -17,4 +17,68 @@
     <color name="aqi_unhealthy">#F44336</color>
     <color name="aqi_very_unhealthy">#9C27B0</color>
     <color name="aqi_hazardous">#660000</color>
+
+    <!-- Additional colors for enhanced UI -->
+    <color name="background_light">#FAFAFA</color>
+    <color name="card_background">#FFFFFF</color>
+    <color name="today_card_bg">#E3F2FD</color>
+    <color name="search_background">#F8F9FA</color>
+
+    <!-- Text colors -->
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#616161</color>
+    <color name="text_hint">#9E9E9E</color>
+
+    <!-- Air quality data colors -->
+    <color name="no2_color">#FF5722</color>
+    <color name="o3_color">#2196F3</color>
+
+    <!-- Card border and divider colors -->
+    <color name="card_border">#E0E0E0</color>
+    <color name="divider_color">#EEEEEE</color>
+
+    <!-- Status indicator colors -->
+    <color name="status_online">#4CAF50</color>
+    <color name="status_offline">#F44336</color>
+    <color name="status_warning">#FF9800</color>
+
+    <!-- Gradient colors -->
+    <color name="gradient_start">#E3F2FD</color>
+    <color name="gradient_end">#BBDEFB</color>
+
+    <!-- Shadow colors -->
+    <color name="shadow_light">#1A000000</color>
+    <color name="shadow_medium">#33000000</color>
+
+    <!-- New Enhanced Colors -->
+    <color name="accent_orange">#FF7043</color>
+    <color name="accent_purple">#7B1FA2</color>
+    <color name="accent_teal">#00ACC1</color>
+    <color name="accent_pink">#E91E63</color>
+
+    <!-- Graph colors -->
+    <color name="graph_grid">#F0F0F0</color>
+    <color name="graph_label">#757575</color>
+    <color name="graph_background">#FEFEFE</color>
+
+    <!-- Additional pollutant colors -->
+    <color name="pm25_color">#9C27B0</color>
+    <color name="pm10_color">#FF9800</color>
+    <color name="so2_color">#795548</color>
+    <color name="co_color">#607D8B</color>
+
+    <!-- Success and error colors -->
+    <color name="success_green">#2E7D32</color>
+    <color name="warning_amber">#F57C00</color>
+    <color name="error_red">#D32F2F</color>
+
+    <!-- Background variants -->
+    <color name="surface_light">#F8F9FA</color>
+    <color name="surface_medium">#F1F3F4</color>
+    <color name="surface_dark">#E8EAED</color>
+
+    <!-- Interactive elements -->
+    <color name="ripple_light">#1F000000</color>
+    <color name="ripple_dark">#33FFFFFF</color>
+    <color name="selection_highlight">#331976D2</color>
 </resources>
