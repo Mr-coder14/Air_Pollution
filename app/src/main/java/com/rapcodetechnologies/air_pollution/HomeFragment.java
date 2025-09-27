@@ -1,11 +1,16 @@
 package com.rapcodetechnologies.air_pollution;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.media.RingtoneManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
@@ -28,10 +33,10 @@ public class HomeFragment extends Fragment {
     private TextView tomorrowNo2Value, tomorrowNo2Status, tomorrowO3Value, tomorrowO3Status;
     private TextView dayAfterNo2Value, dayAfterNo2Status, dayAfterO3Value, dayAfterO3Status;
 
-    private Random random = new Random();
+    private final Random random = new Random();
 
     public HomeFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
@@ -43,7 +48,14 @@ public class HomeFragment extends Fragment {
         setupGraph();
         setupForecastData();
         updateCurrentAQI();
+        graph.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), MapActivity.class);
+                startActivity(intent);
 
+            }
+        });
         return view;
     }
 
@@ -52,19 +64,19 @@ public class HomeFragment extends Fragment {
         aqiValue = view.findViewById(R.id.aqi_value);
         aqiStatus = view.findViewById(R.id.aqi_status);
 
-        // Today's data
+
         todayNo2Value = view.findViewById(R.id.today_no2_value);
         todayNo2Status = view.findViewById(R.id.today_no2_status);
         todayO3Value = view.findViewById(R.id.today_o3_value);
         todayO3Status = view.findViewById(R.id.today_o3_status);
 
-        // Tomorrow's data
+
         tomorrowNo2Value = view.findViewById(R.id.tomorrow_no2_value);
         tomorrowNo2Status = view.findViewById(R.id.tomorrow_no2_status);
         tomorrowO3Value = view.findViewById(R.id.tomorrow_o3_value);
         tomorrowO3Status = view.findViewById(R.id.tomorrow_o3_status);
 
-        // Day after tomorrow's data
+
         dayAfterNo2Value = view.findViewById(R.id.day_after_no2_value);
         dayAfterNo2Status = view.findViewById(R.id.day_after_no2_status);
         dayAfterO3Value = view.findViewById(R.id.day_after_o3_value);
@@ -72,11 +84,11 @@ public class HomeFragment extends Fragment {
     }
 
     private void setupGraph() {
-        // Generate realistic air quality data for 24 hours
-        DataPoint[] no2Data = generatePollutantData(24, 20, 60); // NO2 data
-        DataPoint[] o3Data = generatePollutantData(24, 30, 80);  // O3 data
 
-        // Create line series for NO2
+        DataPoint[] no2Data = generatePollutantData(24, 20, 60);
+        DataPoint[] o3Data = generatePollutantData(24, 30, 80);
+
+
         LineGraphSeries<DataPoint> no2Series = new LineGraphSeries<>(no2Data);
         no2Series.setColor(ContextCompat.getColor(requireContext(), R.color.no2_color));
         no2Series.setThickness(6);
@@ -84,11 +96,11 @@ public class HomeFragment extends Fragment {
         no2Series.setDataPointsRadius(8);
         no2Series.setTitle("NO₂");
 
-        // Add gradient background for NO2
+
         no2Series.setDrawBackground(true);
         no2Series.setBackgroundColor(Color.parseColor("#33FF5722"));
 
-        // Create line series for O3
+
         LineGraphSeries<DataPoint> o3Series = new LineGraphSeries<>(o3Data);
         o3Series.setColor(ContextCompat.getColor(requireContext(), R.color.o3_color));
         o3Series.setThickness(6);
@@ -96,20 +108,20 @@ public class HomeFragment extends Fragment {
         o3Series.setDataPointsRadius(8);
         o3Series.setTitle("O₃");
 
-        // Add gradient background for O3
+
         o3Series.setDrawBackground(true);
         o3Series.setBackgroundColor(Color.parseColor("#332196F3"));
 
-        // Add series to graph
+
         graph.addSeries(no2Series);
         graph.addSeries(o3Series);
 
-        // Configure graph appearance
+
         configureGraph();
     }
 
     private void configureGraph() {
-        // Configure viewport
+
         graph.getViewport().setXAxisBoundsManual(true);
         graph.getViewport().setMinX(0);
         graph.getViewport().setMaxX(23);
@@ -117,13 +129,13 @@ public class HomeFragment extends Fragment {
         graph.getViewport().setMinY(0);
         graph.getViewport().setMaxY(100);
 
-        // Enable scrolling and zooming
+
         graph.getViewport().setScrollable(true);
         graph.getViewport().setScrollableY(true);
         graph.getViewport().setScalable(true);
         graph.getViewport().setScalableY(true);
 
-        // Configure grid and labels
+
         GridLabelRenderer gridLabel = graph.getGridLabelRenderer();
         gridLabel.setHorizontalAxisTitle("Hour of Day");
         gridLabel.setVerticalAxisTitle("Concentration (μg/m³)");
@@ -136,14 +148,14 @@ public class HomeFragment extends Fragment {
         gridLabel.setNumHorizontalLabels(6);
         gridLabel.setNumVerticalLabels(6);
 
-        // Customize grid appearance
+
         gridLabel.setGridStyle(GridLabelRenderer.GridStyle.BOTH);
         gridLabel.setHighlightZeroLines(false);
 
-        // Add padding
+
         gridLabel.setPadding(32);
 
-        // Enable legend
+
         graph.getLegendRenderer().setVisible(true);
         graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
         graph.getLegendRenderer().setBackgroundColor(Color.TRANSPARENT);
@@ -154,15 +166,15 @@ public class HomeFragment extends Fragment {
         DataPoint[] dataPoints = new DataPoint[hours];
 
         for (int i = 0; i < hours; i++) {
-            // Create realistic daily pollution pattern
-            double timeMultiplier = Math.sin(Math.PI * i / 12.0) * 0.3 + 0.7; // Daily cycle
-            double randomVariation = 0.8 + (random.nextDouble() * 0.4); // ±20% random variation
+
+            double timeMultiplier = Math.sin(Math.PI * i / 12.0) * 0.3 + 0.7;
+            double randomVariation = 0.8 + (random.nextDouble() * 0.4);
             double value = baseValue + (maxValue - baseValue) * timeMultiplier * randomVariation;
 
-            // Add some noise for realism
+
             value += (random.nextGaussian() * 5);
 
-            // Ensure value is within reasonable bounds
+
             value = Math.max(10, Math.min(maxValue + 20, value));
 
             dataPoints[i] = new DataPoint(i, value);
@@ -172,25 +184,25 @@ public class HomeFragment extends Fragment {
     }
 
     private void setupForecastData() {
-        // Generate forecast data for next 3 days
+
         ForecastData today = generateForecastData();
         ForecastData tomorrow = generateForecastData();
         ForecastData dayAfter = generateForecastData();
 
-        // Update UI with forecast data
+
         updateForecastUI(today, tomorrow, dayAfter);
     }
 
     private ForecastData generateForecastData() {
-        // Generate realistic pollution values
-        int no2Value = 20 + random.nextInt(40); // 20-60 μg/m³
-        int o3Value = 30 + random.nextInt(50);  // 30-80 μg/m³
+
+        int no2Value = 20 + random.nextInt(40);
+        int o3Value = 30 + random.nextInt(50);
 
         return new ForecastData(no2Value, o3Value);
     }
 
     private void updateForecastUI(ForecastData today, ForecastData tomorrow, ForecastData dayAfter) {
-        // Update today's data
+
         todayNo2Value.setText(String.valueOf(today.no2));
         todayNo2Status.setText(getAQIStatus(today.no2, "NO2"));
         todayNo2Status.setTextColor(ContextCompat.getColor(requireContext(), getAQIColor(today.no2, "NO2")));
@@ -199,7 +211,9 @@ public class HomeFragment extends Fragment {
         todayO3Status.setText(getAQIStatus(today.o3, "O3"));
         todayO3Status.setTextColor(ContextCompat.getColor(requireContext(), getAQIColor(today.o3, "O3")));
 
-        // Update tomorrow's data
+
+
+
         tomorrowNo2Value.setText(String.valueOf(tomorrow.no2));
         tomorrowNo2Status.setText(getAQIStatus(tomorrow.no2, "NO2"));
         tomorrowNo2Status.setTextColor(ContextCompat.getColor(requireContext(), getAQIColor(tomorrow.no2, "NO2")));
@@ -208,7 +222,7 @@ public class HomeFragment extends Fragment {
         tomorrowO3Status.setText(getAQIStatus(tomorrow.o3, "O3"));
         tomorrowO3Status.setTextColor(ContextCompat.getColor(requireContext(), getAQIColor(tomorrow.o3, "O3")));
 
-        // Update day after tomorrow's data
+
         dayAfterNo2Value.setText(String.valueOf(dayAfter.no2));
         dayAfterNo2Status.setText(getAQIStatus(dayAfter.no2, "NO2"));
         dayAfterNo2Status.setTextColor(ContextCompat.getColor(requireContext(), getAQIColor(dayAfter.no2, "NO2")));
@@ -218,8 +232,9 @@ public class HomeFragment extends Fragment {
         dayAfterO3Status.setTextColor(ContextCompat.getColor(requireContext(), getAQIColor(dayAfter.o3, "O3")));
     }
 
+
     private void updateCurrentAQI() {
-        // Calculate overall AQI based on current pollutant levels
+
         int currentAQI = calculateOverallAQI();
         aqiValue.setText(String.valueOf(currentAQI));
 
@@ -232,8 +247,8 @@ public class HomeFragment extends Fragment {
     }
 
     private int calculateOverallAQI() {
-        // Simplified AQI calculation
-        return 35 + random.nextInt(30); // Returns AQI between 35-65 (Good to Moderate range)
+
+        return 35 + random.nextInt(30);
     }
 
     private String getAQIStatus(int value, String pollutant) {
@@ -242,7 +257,7 @@ public class HomeFragment extends Fragment {
             else if (value <= 80) return "Moderate";
             else if (value <= 180) return "Unhealthy";
             else return "Very Unhealthy";
-        } else { // O3
+        } else {
             if (value <= 50) return "Good";
             else if (value <= 100) return "Moderate";
             else if (value <= 168) return "Unhealthy";
@@ -266,6 +281,7 @@ public class HomeFragment extends Fragment {
         }
     }
 
+
     private String getOverallAQIStatus(int aqi) {
         if (aqi <= 50) return "Good";
         else if (aqi <= 100) return "Moderate";
@@ -284,7 +300,6 @@ public class HomeFragment extends Fragment {
         else return R.color.aqi_hazardous;
     }
 
-    // Helper class for forecast data
     private static class ForecastData {
         int no2;
         int o3;

@@ -1,14 +1,20 @@
 package com.rapcodetechnologies.air_pollution;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import android.Manifest;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         fragmentManager = getSupportFragmentManager();
 
-        // Set the initial fragment to be the HomeFragment
         if (savedInstanceState == null) {
             FragmentTransaction transaction = fragmentManager.beginTransaction();
             transaction.replace(R.id.fragment_container, new HomeFragment());
@@ -49,4 +54,5 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
     }
+
 }
